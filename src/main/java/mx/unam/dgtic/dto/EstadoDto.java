@@ -1,8 +1,5 @@
 package mx.unam.dgtic.dto;
 
-import org.springframework.stereotype.Component;
-
-
 public class EstadoDto {
     private int idEstado;
     private String estado;

@@ -5,7 +5,6 @@ import mx.unam.dgtic.model.Alumno;
 import mx.unam.dgtic.model.Estado;
 import mx.unam.dgtic.model.Grupo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

@@ -1,6 +1,5 @@
 package mx.unam.dgtic.controller;
 
-import mx.unam.dgtic.dto.AlumnoDto;
 import mx.unam.dgtic.dto.EstadoDto;
 import mx.unam.dgtic.servicio.IEstadoDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class EstadoDtoController {
 
     @PatchMapping(path = "/{id}")
     public ResponseEntity<EstadoDto> actualizacionParcialDto(
-            @PathVariable int idEstado,
+            @PathVariable("id") int idEstado,
             @RequestBody EstadoDto estadoDto
     ) throws ParseException {
         Optional<EstadoDto> estadoDb = estadoDtoService.getEstadoById(idEstado);
@@ -61,9 +60,21 @@ public class EstadoDtoController {
         }
     }
 
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<EstadoDto> actualizarEstado(@PathVariable Integer id, @RequestBody EstadoDto estadoDto) throws ParseException, URISyntaxException {
+       Optional<EstadoDto> estadoDb = estadoDtoService.getEstadoById(id);
+       if (estadoDb.isEmpty()){
+           URI location = new URI("/api/estados/" +  estadoDto.getIdEstado());
+           return ResponseEntity.created(location).body(estadoDtoService.createEstado(estadoDto));
+       }
+       estadoDto.setIdEstado(id);
+       URI location2 = new URI("/api/estados/" + estadoDto.getIdEstado());
+       return ResponseEntity.ok(estadoDtoService.updateEstado(estadoDto));
+    }
+
    @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteEstado(
-            @PathVariable int idEstado
+            @PathVariable("id") int idEstado
    ){
        if (estadoDtoService.deletEstado(idEstado)){
            return ResponseEntity.ok().build();
@@ -72,6 +83,20 @@ public class EstadoDtoController {
        }
    }
 
-
+    //  /api/estados/paginado?page=0&size=2&dir=asc&sort=estado
+   @GetMapping(path="/paginado")
+   public ResponseEntity<List<EstadoDto>> getPaginado(
+           @RequestParam(defaultValue = "0") int page,
+           @RequestParam(defaultValue = "2") int size,
+           @RequestParam(defaultValue = "asc") String dir,
+           @RequestParam(defaultValue = "matricula") String sort
+   ){
+       return ResponseEntity.ok(estadoDtoService.getAllPageable(
+               page,
+               size,
+               dir,
+               sort
+       ));
+   }
 
 }

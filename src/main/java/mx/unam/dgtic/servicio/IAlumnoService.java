@@ -1,6 +1,5 @@
 package mx.unam.dgtic.servicio;
 
-import mx.unam.dgtic.dto.AlumnoDto;
 import mx.unam.dgtic.model.Alumno;
 import org.springframework.stereotype.Service;
 

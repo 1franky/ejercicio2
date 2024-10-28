@@ -5,6 +5,9 @@ import mx.unam.dgtic.model.Estado;
 import mx.unam.dgtic.repository.EstadoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -49,6 +52,17 @@ public class EstadoDtoService implements IEstadoDtoService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<EstadoDto> getAllPageable(int page,
+                                          int size,
+                                          String dirSort,
+                                          String sort) {
+        PageRequest pageRequest = PageRequest.of(page, size,
+                Sort.Direction.fromString(dirSort),sort);
+        Page<Estado> pageResult = estadoRepository.findAll(pageRequest);
+        return pageResult.stream().map(this::toDto).toList();
     }
 
     private EstadoDto toDto(Estado estado){

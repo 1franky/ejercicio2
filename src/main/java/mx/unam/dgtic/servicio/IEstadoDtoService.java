@@ -1,6 +1,5 @@
 package mx.unam.dgtic.servicio;
 
-import mx.unam.dgtic.dto.AlumnoDto;
 import mx.unam.dgtic.dto.EstadoDto;
 
 import java.text.ParseException;
@@ -13,5 +12,6 @@ public interface IEstadoDtoService {
     public EstadoDto updateEstado(EstadoDto estado) throws ParseException;
     public EstadoDto createEstado(EstadoDto estado) throws ParseException;
     public boolean deletEstado(int idEstado);
+    List<EstadoDto> getAllPageable(int page, int size, String dirSort, String sort);
 
 }

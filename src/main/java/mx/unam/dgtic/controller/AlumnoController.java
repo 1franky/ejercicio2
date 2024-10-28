@@ -1,9 +1,6 @@
 package mx.unam.dgtic.controller;
 
-import mx.unam.dgtic.dto.AlumnoDto;
 import mx.unam.dgtic.model.Alumno;
-import mx.unam.dgtic.repository.AlumnoRepository;
-import mx.unam.dgtic.servicio.AlumnoDtoService;
 import mx.unam.dgtic.servicio.IAlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
